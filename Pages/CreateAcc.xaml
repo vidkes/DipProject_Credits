@@ -1,0 +1,37 @@
+﻿<Page x:Class="credit_normal.Pages.CreateAcc"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:credit_normal.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="420" d:DesignWidth="800"
+      Title="CreateAcc">
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="auto" Width="auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="170"></ColumnDefinition>
+            <ColumnDefinition Width="460"></ColumnDefinition>
+            <ColumnDefinition Width="170"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBox Name="Password" Text="{Binding Password}" Grid.Column="1" FontSize="20" Grid.Row="2" VerticalContentAlignment="Center" Margin="10,10,10,10"/>
+        <TextBox Name="Login" Text="{Binding Login}" Grid.Column="1" Grid.Row="1" FontSize="20" VerticalContentAlignment="Center" Margin="10,10,10,10"/>
+        <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Логин" HorizontalContentAlignment="Right" FontSize="20"/>
+        <Label Grid.Column="0" Grid.Row="2" Content="Пароль" FontSize="20" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+        <Label Grid.Column="0" Grid.Row="3" Content="Роль" FontSize="20" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+        <ComboBox Name="Role" SelectedIndex="{Binding Role}" Grid.Column="1" Grid.Row="3" Margin="10" FontSize="20" VerticalContentAlignment="Center">
+            <Label Content="Сотрудник"/>
+            <Label Content="ТехАдмин"/>
+        </ComboBox>
+        <Button Name="Entr" Content="Сохранить" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="34" Grid.Column="1" FontSize="20" Margin="10" Click="Entr_Click"/>
+        <Button Name="Canel" Content="Сбросить" Grid.Column="1" Grid.Row="4" Width="200" Height="35" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" Click="Canel_Click"/>
+    </Grid>
+</Page>

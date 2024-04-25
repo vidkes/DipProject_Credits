@@ -24,5 +24,25 @@ namespace credit_normal.Pages
         {
             InitializeComponent();
         }
+
+        private void Clients_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Clients());
+        }
+
+        private void Credit_access_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Report_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CreateAcc_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new RedactAccs());
+        }
     }
 }

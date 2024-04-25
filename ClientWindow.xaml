@@ -23,9 +23,6 @@
             <ColumnDefinition Width="315"></ColumnDefinition>
             <ColumnDefinition Width="170"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Menu Grid.ColumnSpan="3">
-            <MenuItem Header="Назад" FontSize="15" VerticalContentAlignment="Center" Height="35" BorderBrush="Gray" Click="MenuItem_Click"/>
-        </Menu>
         <Label Name="labelf" Content="Фамилия" Margin="10,0,108,35" FontSize="20" HorizontalContentAlignment="Center" Grid.Row="2"/>
         <TextBox Name="F" Text="{Binding Last_name}"  Grid.Column="0" Grid.Row="2" Margin="10,35,108,0" FontSize="20"/>
         <Label Name="labeli" Content="Имя" Margin="216,0,216,35" FontSize="20" HorizontalContentAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2" />
@@ -58,8 +55,9 @@
         <TextBox Name="Salary" FontSize="20" Grid.Column="2" Grid.Row="6" Margin="10,35,10,0"/>
         <Label Content="Кредитный рейтинг:" FontSize="20" Grid.Row="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
         <TextBlock Text="{Binding Credit_score}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="3"/>
-        <Button Name="save" Content="Сохранить" Background="MediumSeaGreen" Height="35" FontSize="20" VerticalContentAlignment="Top" HorizontalAlignment="Center" Margin="40,5,40,5" Grid.ColumnSpan="3" Grid.Row="7" Width="180" Click="save_Click"/>
-        <Button Name="RepBut" Content="Сводка" FontSize="20" VerticalAlignment="Center" Height="35" VerticalContentAlignment="Top" HorizontalAlignment="Center" Margin="40,5,40,5" Grid.ColumnSpan="3" Grid.Row="7" Width="180" Click="Rep_Click"/>
-        <Frame Name="RepFrame" Source="Pages/RepPage.xaml" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3" Grid.RowSpan="6" Grid.Row="1"/>
+        <Button Name="save" Content="Сохранить" Visibility="Hidden" Background="MediumSeaGreen" Height="35" FontSize="20" VerticalContentAlignment="Top" HorizontalAlignment="Center" Margin="40,5,40,5" Grid.ColumnSpan="3" Grid.Row="7" Width="180" Click="save_Click"/>
+        <Button Name="RepBut" Content="Сводка" Visibility="Hidden" FontSize="20" VerticalAlignment="Center" Height="35" VerticalContentAlignment="Top" HorizontalAlignment="Center" Margin="40,5,40,5" Grid.ColumnSpan="3" Grid.Row="7" Width="180" Click="Rep_Click"/>
+        <Button x:Name="Back" Content="Назад" Visibility="Hidden" FontSize="20" VerticalAlignment="Center" Height="35" VerticalContentAlignment="Top" HorizontalAlignment="Center" Margin="40,5,40,5" Grid.ColumnSpan="3" Grid.Row="7" Width="180" Click="Back_Click" />
+        <Frame Name="RepFrame" Source="Pages/RepPage.xaml" Background="White" Visibility="Hidden" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3" Grid.RowSpan="6" Grid.Row="1" Margin="0,10,0,0"/>
     </Grid>
 </Window>

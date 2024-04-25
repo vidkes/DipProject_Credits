@@ -41,14 +41,13 @@ namespace credit_normal.Pages
         private void Create_Click(object sender, RoutedEventArgs e)
         {
             ClientWindow clientWindow = new ClientWindow(null);
-            clientWindow.RepBut.Visibility = Visibility.Hidden;
-            clientWindow.RepFrame.Visibility = Visibility.Hidden;
+            clientWindow.save.Visibility = Visibility.Visible;
         }
 
         private void Open_Click(object sender, RoutedEventArgs e)
         {
             ClientWindow clientWindow = new ClientWindow((sender as Button).DataContext as Client_data);
-            clientWindow.RepFrame.Visibility = Visibility.Hidden;
+            clientWindow.RepBut.Visibility = Visibility.Visible;
         }
     }
 }

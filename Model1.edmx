@@ -28,13 +28,13 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="First_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Father_name" Type="nvarchar" MaxLength="50" />
           <Property Name="Sex" Type="bit" Nullable="false" />
-          <Property Name="Passport" Type="int" Nullable="false" />
-          <Property Name="INN" Type="int" />
+          <Property Name="Passport" Type="bigint" Nullable="false" />
+          <Property Name="INN" Type="bigint" />
           <Property Name="Passport_adress" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Adress" Type="nvarchar(max)" />
           <Property Name="Real_adress" Type="nvarchar(max)" />
@@ -43,7 +43,7 @@
           <Property Name="Job_position" Type="nvarchar" MaxLength="50" />
           <Property Name="salary" Type="float" />
           <Property Name="Credit_score" Type="float" Nullable="false" />
-          <Property Name="report" Type="int" StoreGeneratedPattern="None" Nullable="false" />
+          <Property Name="report" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="FSSP">
           <Key>
@@ -221,8 +221,8 @@
           <Property Name="First_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Father_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Sex" Type="Boolean" Nullable="false" />
-          <Property Name="Passport" Type="Int32" Nullable="false" />
-          <Property Name="INN" Type="Int32" />
+          <Property Name="Passport" Type="Int64" Nullable="false" />
+          <Property Name="INN" Type="Int64" />
           <Property Name="Passport_adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Real_adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />

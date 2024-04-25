@@ -21,7 +21,6 @@ namespace credit_normal
     /// </summary>
     public partial class ClientWindow : Window
     {
-        Clients clients;
         private Client_data _currentClient = new Client_data();
         public ClientWindow(Client_data selectedClient)
         {
@@ -102,11 +101,15 @@ namespace credit_normal
         private void Rep_Click(object sender, RoutedEventArgs e)
         {
             RepFrame.Visibility = Visibility.Visible;
+            Back.Visibility = Visibility.Visible;
+            RepBut.Visibility = Visibility.Hidden;
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
             RepFrame.Visibility = Visibility.Hidden;
+            Back.Visibility = Visibility.Hidden;
+            RepBut.Visibility = Visibility.Visible;
         }
     }
 }

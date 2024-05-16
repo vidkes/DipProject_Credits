@@ -62,7 +62,7 @@ namespace credit_normal
                 client_.Passport = pass;
                 client_.INN = (int?)Convert.ToInt64(Inn.Text);
                 client_.Marriage = Marriage.SelectedIndex == 1;
-                client_.Passport_adress = Adress.Text;
+                client_.Adress = Adress.Text;
                 client_.Real_adress = RealAdress.Text;
                 client_.Job = Job.Text;
                 client_.Job_position = JobPos.Text;

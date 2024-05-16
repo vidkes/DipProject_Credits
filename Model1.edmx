@@ -35,9 +35,8 @@
           <Property Name="Sex" Type="bit" Nullable="false" />
           <Property Name="Passport" Type="bigint" Nullable="false" />
           <Property Name="INN" Type="bigint" />
-          <Property Name="Passport_adress" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Adress" Type="nvarchar(max)" />
-          <Property Name="Real_adress" Type="nvarchar(max)" />
+          <Property Name="Real_adress" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Marriage" Type="bit" Nullable="false" />
           <Property Name="Job" Type="nvarchar" MaxLength="50" />
           <Property Name="Job_position" Type="nvarchar" MaxLength="50" />
@@ -223,9 +222,8 @@
           <Property Name="Sex" Type="Boolean" Nullable="false" />
           <Property Name="Passport" Type="Int64" Nullable="false" />
           <Property Name="INN" Type="Int64" />
-          <Property Name="Passport_adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Real_adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Real_adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Marriage" Type="Boolean" Nullable="false" />
           <Property Name="Job" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Job_position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -430,7 +428,6 @@
                 <ScalarProperty Name="Sex" ColumnName="Sex" />
                 <ScalarProperty Name="Passport" ColumnName="Passport" />
                 <ScalarProperty Name="INN" ColumnName="INN" />
-                <ScalarProperty Name="Passport_adress" ColumnName="Passport_adress" />
                 <ScalarProperty Name="Adress" ColumnName="Adress" />
                 <ScalarProperty Name="Real_adress" ColumnName="Real_adress" />
                 <ScalarProperty Name="Marriage" ColumnName="Marriage" />

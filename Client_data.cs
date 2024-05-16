@@ -21,7 +21,6 @@ namespace credit_normal
         public bool Sex { get; set; }
         public long Passport { get; set; }
         public Nullable<long> INN { get; set; }
-        public string Passport_adress { get; set; }
         public string Adress { get; set; }
         public string Real_adress { get; set; }
         public bool Marriage { get; set; }

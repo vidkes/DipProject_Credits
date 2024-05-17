@@ -46,7 +46,10 @@ namespace credit_normal
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.NavigationService?.Navigate(new AuthPage());
+            while (MainFrame.NavigationService.CanGoBack)
+            {
+                this.MainFrame.GoBack();
+            }
         }
 
         private void MainFrame_Navigated(object sender, NavigationEventArgs e)

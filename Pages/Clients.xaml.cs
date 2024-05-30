@@ -49,5 +49,14 @@ namespace credit_normal.Pages
             ClientWindow clientWindow = new ClientWindow((sender as Button).DataContext as Client_data);
             clientWindow.RepBut.Visibility = Visibility.Visible;
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(ComboBox.SelectedIndexProperty != null) 
+            { 
+                filt.Visibility = Visibility.Collapsed; 
+            }
+
+        }
     }
 }

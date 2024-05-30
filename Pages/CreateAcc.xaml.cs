@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,18 @@ namespace credit_normal.Pages
                 _currentUser = selectedAccounts;
 
             DataContext = _currentUser;
+
+        }
+
+        public void ButtonConfig(bool showEdit, bool showEntr)
+        {
+            if (showEdit == true) 
+                confirm.Visibility = Visibility.Visible;
+            else confirm.Visibility = Visibility.Hidden;
+
+            if (showEntr == true)
+                confirm.Visibility = Visibility.Visible;
+            else confirm.Visibility = Visibility.Hidden;
         }
 
         private void Canel_Click(object sender, RoutedEventArgs e)
@@ -72,6 +85,33 @@ namespace credit_normal.Pages
                 db.SaveChanges();
                 MessageBox.Show("Пользователь зарегистрирован");
             }
+            NavigationService?.Navigate(new RedactAccs());
+        }
+
+        private void confirm_Click(object sender, RoutedEventArgs e)
+        {
+            //регистрация нового юзера
+            CreditsEntities db = new CreditsEntities();
+            var usr = db.Accounts
+                .AsNoTracking()
+                .FirstOrDefault(u => u.Login == Login.Text);
+            
+                //передача данных нового юзера в базу
+                Accounts user = new Accounts();
+                {
+                    bool intbool;
+                    user.ID = usr.ID;
+                    user.Login = Login.Text;
+                    user.Password = Password.Text;
+                    if (Role.SelectedIndex == 1) intbool = true;
+                    else intbool = false;
+                    user.Role = intbool;
+
+                };
+                db.Accounts.AddOrUpdate(user);
+                db.SaveChanges();
+                MessageBox.Show("Пользователь зарегистрирован");
+            
             NavigationService?.Navigate(new RedactAccs());
         }
     }

@@ -24,13 +24,6 @@
                     <Image Source="/Images/user_icon.png"/>
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Name="OperMIt" ToolTip="Операции" Width="25">
-                <MenuItem.Icon>
-                    <Image Source="/Images/doc_icon.png"/>
-                </MenuItem.Icon>
-                <MenuItem Header="Оформить кредит"/>
-                <MenuItem Header="Отчеты"/>
-            </MenuItem>
             <MenuItem Name="ToolsMIt" ToolTip="Инструменты разработчика" Width="25">
                 <MenuItem.Icon>
                     <Image Source="/Images/wrench_icon.png" />
@@ -38,11 +31,10 @@
                 <MenuItem Name="CrAcc" Header="Создать аккаунт" Click="CrAcc_Click"/>
                 <MenuItem Name="RedAccs" Header="Аккаунты" Click="RedAccs_Click"/>
             </MenuItem>
-            
+
         </Menu>
 
         <Frame Name="MainFrame" Source="Pages/AuthPage.xaml" NavigationUIVisibility="Hidden" Grid.Row="1" Navigated="MainFrame_Navigated" Grid.ColumnSpan="2"/>
-        <Label Name="clock" Grid.Row="2" Grid.Column="1" Content="" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="200"/>
-        <Button Name="Exit" Content="Выход" Grid.Row="2" FontSize="20" VerticalAlignment="Top" Height="auto" Width="148" Click="Exit_Click" HorizontalAlignment="Left"/>
-     </Grid>
+        <Button Name="Exit" Content="Выход" Grid.Row="2" FontSize="20" VerticalAlignment="Top" Height="auto" Width="148" Click="Exit_Click" HorizontalAlignment="Left" Margin="10,11,0,0"/>
+    </Grid>
 </Window>

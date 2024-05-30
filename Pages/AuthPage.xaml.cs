@@ -24,7 +24,7 @@ namespace credit_normal.Pages
         {
             InitializeComponent();
         }
-
+        public bool isAdmin { get; private set; }
         private void Entr_Click(object sender, RoutedEventArgs e)
         {
             using (var db = new CreditsEntities())
@@ -39,10 +39,12 @@ namespace credit_normal.Pages
                     MessageBox.Show("Пользователь не найден");
                     return;
                 }
+                isAdmin = user.Role;
                 //user role check
                 switch (user.Role)
                 {
                     case true:
+                        
                         NavigationService?.Navigate(new AdmMainPage());
                         break;
                     case false:
@@ -50,11 +52,19 @@ namespace credit_normal.Pages
                         break;
                 }
             }
+            SetMenuVisibility();
+        }
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            SetMenuVisibility();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void SetMenuVisibility()
         {
-            NavigationService?.Navigate(new AdmMainPage());
+            if (Application.Current.MainWindow is MainWindow mainWindow)
+            {
+                mainWindow.SetMenuVisibilityBasedOnRole(isAdmin);
+            }
         }
     }
 }

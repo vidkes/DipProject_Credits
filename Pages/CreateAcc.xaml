@@ -32,6 +32,7 @@
             <Label Content="ТехАдмин"/>
         </ComboBox>
         <Button Name="Entr" Content="Сохранить" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="34" Grid.Column="1" FontSize="20" Margin="10" Click="Entr_Click"/>
+        <Button Name="confirm" Content="Сохранить" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="34" Grid.Column="1" FontSize="20" Margin="10" Click="confirm_Click"/>
         <Button Name="Canel" Content="Сбросить" Grid.Column="1" Grid.Row="4" Width="200" Height="35" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" Click="Canel_Click"/>
     </Grid>
 </Page>

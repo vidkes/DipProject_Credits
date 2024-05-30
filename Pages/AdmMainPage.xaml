@@ -22,9 +22,7 @@
             <ColumnDefinition Width="460"></ColumnDefinition>
             <ColumnDefinition Width="170"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button Name="Clients" Content="Клиенты" Grid.Column="1" Grid.Row="1" Margin="10" FontSize="20" Click="Clients_Click"/>
-        <Button Name="Credit_access" Content="Выдача кредитов" FontSize="20" Grid.Column="1" Grid.Row="2" Margin="10" Click="Credit_access_Click"/>
-        <Button Name="Report" Content="Отчетность" FontSize="20" Grid.Column="1" Grid.Row="3" Margin="10" Click="Report_Click"/>
-        <Button Name="CreateAcc" Content="Редактирование Аккаунтов" FontSize="20" Grid.Column="1" Grid.Row="4" Margin="10" Click="CreateAcc_Click"/>
+        <Button Name="Clients" Content="Клиенты" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" FontSize="20" Click="Clients_Click"/>
+        <Button Name="CreateAcc" Content="Редактирование Аккаунтов" FontSize="20" Grid.Column="1" Grid.Row="3" Margin="10,10,10,10" Click="CreateAcc_Click"/>
     </Grid>
 </Page>

@@ -32,71 +32,116 @@ namespace credit_normal
             DataContext = _currentClient;
         }
 
+        public event Action OnClientDataUpdated;
+
         private void save_Click(object sender, RoutedEventArgs e)
         {
+            // Валидация данных
             if (string.IsNullOrEmpty(Inn.Text))
             {
-                MessageBox.Show("поле ИНН пустое");
-            }
-            //регистрация нового client
-            CreditsEntities db = new CreditsEntities();
-            int pass = Convert.ToInt32(Passport.Text);
-            var existingClient = db.Client_data.FirstOrDefault(u => u.Passport == pass);
-            //проверка существует ли client
-            if (existingClient != null)
-            {
-                MessageBox.Show("Нельзя повторно внести клиента в базу");
+                MessageBox.Show("Поле ИНН пустое");
                 return;
             }
-            //передача данных client в базу
-            Client_data client_ = new Client_data();
-            Rep re = new Rep();
-            FSSP fSSP = new FSSP();
-            Tax_debit tax = new Tax_debit();
-            Bankrupcy bankr = new Bankrupcy();
+
+            if (!int.TryParse(Passport.Text, out int pass))
             {
-                client_.First_name = I.Text;
-                client_.Last_name = F.Text;
-                client_.Father_name = O.Text;
-                client_.Sex = sex.SelectedIndex == 1;
-                client_.Passport = pass;
-                client_.INN = (int?)Convert.ToInt64(Inn.Text);
-                client_.Marriage = Marriage.SelectedIndex == 1;
-                client_.Adress = Adress.Text;
-                client_.Real_adress = RealAdress.Text;
-                client_.Job = Job.Text;
-                client_.Job_position = JobPos.Text;
-                try
+                MessageBox.Show("Некорректный паспортный номер");
+                return;
+            }
+
+            if (!long.TryParse(Inn.Text, out long inn))
+            {
+                MessageBox.Show("Некорректный ИНН");
+                return;
+            }
+
+            if (!float.TryParse(Salary.Text, out float salCount))
+            {
+                MessageBox.Show("Введите сумму дохода через запятую");
+                return;
+            }
+
+            using (CreditsEntities db = new CreditsEntities())
+            {
+                // Проверка существует ли клиент
+                var client = db.Client_data.FirstOrDefault(u => u.Passport == pass);
+                bool isNewClient = client == null;
+
+                if (isNewClient)
                 {
-                    float salCount = float.Parse(Salary.Text);
-                    client_.salary = salCount;
+                    // Новый клиент
+                    client = new Client_data();
+                    db.Client_data.Add(client);
                 }
-                catch (FormatException)
+                else
                 {
-                    MessageBox.Show("Введите сумму дохода через запятую");
-                    return;
+                    // Обновление существующего клиента
+                    if (MessageBox.Show("Клиент уже существует. Обновить данные?", "Обновление клиента", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                    {
+                        return;
+                    }
                 }
-                client_.Credit_score = 67.48;
-                re.Wanted = false;
-                re.INN = true;
-            }; 
-            db.FSSP.Add(fSSP);
-            db.Tax_debit.Add(tax);
-            db.Bankrupcy.Add(bankr);
 
-            re.FSSP = fSSP.ID;
-            re.Tax_debits = tax.ID;
-            re.Bankruptcy = bankr.ID;
-            db.Rep.Add(re);
+                // Заполнение данных клиента
+                client.First_name = I.Text;
+                client.Last_name = F.Text;
+                client.Father_name = O.Text;
+                client.Sex = sex.SelectedIndex == 1;
+                client.Passport = pass;
+                client.INN = (int?)inn;
+                client.Marriage = Marriage.SelectedIndex == 1;
+                client.Adress = Adress.Text;
+                client.Real_adress = RealAdress.Text;
+                client.Job = Job.Text;
+                client.Job_position = JobPos.Text;
+                client.salary = salCount;
 
-            client_.report = re.ID;
-            db.Client_data.Add(client_);
-            db.SaveChanges();
+                if (client.Credit_score == null)
+                {
+                    client.Credit_score = 67.48;
+                }
 
-            MessageBox.Show("Клиент успешно зарегетрирован");
+                // Создание отчетов только для нового клиента
+                if (client.report == null)
+                {
+                    Rep re = new Rep();
+                    FSSP fSSP = new FSSP();
+                    Tax_debit tax = new Tax_debit();
+                    Bankrupcy bankr = new Bankrupcy();
 
-            Close();
+                    re.Wanted = false;
+                    re.INN = true;
+
+                    db.FSSP.Add(fSSP);
+                    db.Tax_debit.Add(tax);
+                    db.Bankrupcy.Add(bankr);
+                    db.SaveChanges();
+
+                    re.FSSP = fSSP.ID;
+                    re.Tax_debits = tax.ID;
+                    re.Bankruptcy = bankr.ID;
+                    db.Rep.Add(re);
+                    db.SaveChanges();
+
+                    client.report = re.ID;
+                }
+
+                db.SaveChanges();
+
+                if (OnClientDataUpdated != null)
+                {
+                    OnClientDataUpdated.Invoke();
+                }
+
+                MessageBox.Show(isNewClient ? "Клиент успешно зарегистрирован" : "Данные клиента успешно обновлены");
+
+                if (isNewClient)
+                {
+                    Close();
+                }
+            }
         }
+
 
         private void Rep_Click(object sender, RoutedEventArgs e)
         {

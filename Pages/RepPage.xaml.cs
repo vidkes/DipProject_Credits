@@ -27,10 +27,10 @@ namespace credit_normal.Pages
             Rep rep = new Rep();
 
             if (rep.INN == true) InnRep.Text = "ИНН действителен";
-            else InnRep.Text = "ИНН не действителен";
+            if (rep.INN == false) InnRep.Text = "ИНН не действителен";
 
-            if (rep.Wanted == true) WantedRep.Text = "В розыске";
-            else WantedRep.Text = "Не в розыске";
+            if (rep.Wanted == true) WantedRep.Text = "Находится в розыске";
+            if (rep.Wanted == false) WantedRep.Text = "Не в розыске";
         }
 
     }

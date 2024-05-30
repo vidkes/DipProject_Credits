@@ -26,11 +26,36 @@ namespace credit_normal
         public MainWindow()
         {
             InitializeComponent();
-            DateTime dateTime = new DateTime();
-            dateTime = DateTime.Now;
-            clock.Content = dateTime.ToString();
+
 
             this.Closing += MainWindow_Closing;
+        }
+        private void SetMenuVisibility()
+        {
+            if (Application.Current.MainWindow is MainWindow mainWindow)
+            {
+                // Получение текущей роли пользователя из страницы входа
+                bool isAdmin = (Application.Current.MainWindow.Content as AuthPage)?.isAdmin ?? false;
+
+                // Установка видимости элементов меню основного окна
+                mainWindow.SetMenuVisibilityBasedOnRole(isAdmin);
+            }
+        }
+        public void SetMenuVisibilityBasedOnRole(bool isAdmin)
+        {
+            
+            // Установите видимость элементов меню в зависимости от роли
+            if (isAdmin == true)
+            {
+                ToolsMIt.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ToolsMIt.Visibility = Visibility.Hidden;
+            }
+            Exit.Visibility = Visibility.Visible;
+            HomeMIt.Visibility = Visibility.Visible;
+            CllientMIt.Visibility = Visibility.Visible;
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -59,29 +84,17 @@ namespace credit_normal
 
             if (page is Pages.AuthPage)
             {
+                Back.Visibility = Visibility.Hidden;
                 Exit.Visibility = Visibility.Hidden;
                 HomeMIt.Visibility = Visibility.Hidden;
                 CllientMIt.Visibility = Visibility.Hidden;
-                OperMIt.Visibility = Visibility.Hidden;
-                ToolsMIt.Visibility = Visibility.Hidden;
-            }
-            else if (page is Pages.MainPage)
-            {
-                Exit.Visibility = Visibility.Visible;
-                HomeMIt.Visibility = Visibility.Visible;
-                CllientMIt.Visibility = Visibility.Visible;
-                OperMIt.Visibility = Visibility.Visible;
                 ToolsMIt.Visibility = Visibility.Hidden;
             }
             else
             {
-                Exit.Visibility = Visibility.Visible;
-                HomeMIt.Visibility = Visibility.Visible;
-                CllientMIt.Visibility = Visibility.Visible;
-                OperMIt.Visibility = Visibility.Visible;
-                ToolsMIt.Visibility = Visibility.Visible;
+                SetMenuVisibility();
+                Back.Visibility = Visibility.Visible;
             }
-                
         }
         private void CrAcc_Click(object sender, RoutedEventArgs e)
         {
@@ -105,31 +118,11 @@ namespace credit_normal
 
         private void HomeMIt_Click(object sender, RoutedEventArgs e)
         {
-            CreditsEntities db = new CreditsEntities();
-            var usr = db.Accounts.FirstOrDefault();
-            if (usr.Role == true)
+            while (MainFrame.CanGoBack)
             {
-                MainFrame.NavigationService?.Navigate(new AdmMainPage());
+                MainFrame.GoBack();
             }
-            else MainFrame.NavigationService?.Navigate(new MainPage());
+            MainFrame.GoForward();
         }
     }
 }
-
-// код для базы
-/*private static CreditsEntities _context;
-public CreditsEntities()
-            : base("name=CreditsEntities")
-        {
-}
-public static CreditsEntities GetContext()
-
-{
-
-    if (_context == null)
-
-        _context = new CreditsEntities();
-
-    return _context;
-
-}*/

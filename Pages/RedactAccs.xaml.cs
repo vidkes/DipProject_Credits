@@ -41,12 +41,19 @@ namespace credit_normal.Pages
         }
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService?.Navigate(new CreateAcc((sender as Button).DataContext as Accounts));
+            CreateAcc acc = new CreateAcc((sender as Button).DataContext as Accounts);
+            NavigationService?.Navigate(acc);
+            acc.ButtonConfig(showEdit: true, showEntr: false);
+            
+            
         }
         
         private void createAcc_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService?.Navigate(new CreateAcc(null));
+            CreateAcc acc = new CreateAcc(null);
+            NavigationService?.Navigate(acc);
+            acc.ButtonConfig(showEdit: false, showEntr: false);
+            
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
@@ -58,6 +65,10 @@ namespace credit_normal.Pages
 
             MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
+                if (DataGridUser.Name == "admin")
+                {
+                    MessageBox.Show("Нельзя удалить базовый админ аккаунт.");
+                }
                 //Удаление данных
                 try
                 {

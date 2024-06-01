@@ -19,7 +19,7 @@ namespace credit_normal
     {
         private static CreditsEntities _context;
         public CreditsEntities()
-                    : base("name=CreditsEntities")
+            : base("name=CreditsEntities")
         {
         }
         public static CreditsEntities GetContext()
@@ -33,7 +33,7 @@ namespace credit_normal
             return _context;
 
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

@@ -43,53 +43,51 @@ namespace credit_normal.Pages
         {
             CreateAcc acc = new CreateAcc((sender as Button).DataContext as Accounts);
             NavigationService?.Navigate(acc);
-            acc.ButtonConfig(showEdit: true, showEntr: false);
-            
-            
         }
         
         private void createAcc_Click(object sender, RoutedEventArgs e)
         {
             CreateAcc acc = new CreateAcc(null);
             NavigationService?.Navigate(acc);
-            acc.ButtonConfig(showEdit: false, showEntr: false);
-            
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            //Подтверждение удаления
-            var usersForRemoving = DataGridUser.SelectedItems.Cast<Accounts>().ToList();
+             var usersForRemoving = DataGridUser.SelectedItems.Cast<Accounts>().ToList();
 
-            if (MessageBox.Show("Вы точно хотите удалить запись?", "Внимание",
-
-            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show("Вы точно хотите удалить запись?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                if (DataGridUser.Name == "admin")
+                var protectedUsers = usersForRemoving.Where(u => u.Login == "admin" && u.Password == "admin").ToList();
+
+                if (protectedUsers.Count > 0)
                 {
                     MessageBox.Show("Нельзя удалить базовый админ аккаунт.");
-                }
-                //Удаление данных
-                try
-                {
-                    CreditsEntities.GetContext().Accounts.RemoveRange(usersForRemoving);
-
-                    CreditsEntities.GetContext().SaveChanges();
-
-                    MessageBox.Show("Данные успешно удалены!");
-
-                    DataGridUser.ItemsSource = CreditsEntities.GetContext().Accounts.ToList();
-
+                    // Удаление защищенных пользователей из списка для удаления
+                    usersForRemoving = usersForRemoving.Except(protectedUsers).ToList();
                 }
 
-                catch (Exception ex)
-
+                if (usersForRemoving.Count > 0)
                 {
+                    try
+                    {
+                        CreditsEntities.GetContext().Accounts.RemoveRange(usersForRemoving);
+                        CreditsEntities.GetContext().SaveChanges();
+                        MessageBox.Show("Данные успешно удалены!");
 
-                    MessageBox.Show(ex.Message.ToString());
-
+                        // Обновление источника данных DataGrid
+                        DataGridUser.ItemsSource = CreditsEntities.GetContext().Accounts.ToList();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Нет данных для удаления.");
                 }
             }
+
         }
     }
 }

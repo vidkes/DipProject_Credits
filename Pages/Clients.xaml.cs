@@ -20,6 +20,8 @@ namespace credit_normal.Pages
     /// </summary>
     public partial class Clients : Page
     {
+        private List<Client_data> _clients;
+        private List<Client_data> _filteredClients;
         public Clients()
         {
             InitializeComponent();
@@ -30,11 +32,10 @@ namespace credit_normal.Pages
             if (Visibility == Visibility.Visible)
 
             {
-
                 CreditsEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
-
-                DataGridUser.ItemsSource = CreditsEntities.GetContext().Client_data.ToList();
-
+                _clients = CreditsEntities.GetContext().Client_data.ToList();
+                _filteredClients = new List<Client_data>(_clients);
+                DataGridUser.ItemsSource = _filteredClients;
             }
         }
 
@@ -50,13 +51,31 @@ namespace credit_normal.Pages
             clientWindow.RepBut.Visibility = Visibility.Visible;
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void serch_Click(object sender, RoutedEventArgs e)
         {
-            if(ComboBox.SelectedIndexProperty != null) 
-            { 
-                filt.Visibility = Visibility.Collapsed; 
+            FilterClients();
+        }
+        private void FilterClients()
+        {
+            if (_clients == null) return;
+
+            var searchText = srctext.Text.ToLower();
+
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                _filteredClients = new List<Client_data>(_clients);
+            }
+            else
+            {
+                _filteredClients = _clients.Where(c =>
+                    c.Last_name.ToLower().Contains(searchText) ||
+                    c.First_name.ToLower().Contains(searchText) ||
+                    c.Father_name.ToLower().Contains(searchText) ||
+                    c.Passport.ToString().Contains(searchText) ||
+                    c.INN.ToString().Contains(searchText)).ToList();
             }
 
+            DataGridUser.ItemsSource = _filteredClients;
         }
     }
 }

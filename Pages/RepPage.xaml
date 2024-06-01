@@ -23,7 +23,7 @@
         <Label Content="Розыск" FontSize="20" HorizontalContentAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2" Margin="140,0,5,40"/>
         <TextBlock Name="InnRep" FontSize="20" Text="" Grid.ColumnSpan="2" Margin="10,40,135,0"/>
         <TextBlock Name="WantedRep"  FontSize="20" Text="" Grid.ColumnSpan="2" Margin="140,40,5,0" Grid.Column="1"/>
-        <Label Content="Банкротства" FontSize="20" Margin="10,0,135,292" Grid.Row="1" HorizontalContentAlignment="Center" Grid.ColumnSpan="2"/>
-        <Label Content="ФССП" FontSize="20" HorizontalContentAlignment="Center" Grid.Column="1" Margin="140,0,-5,292" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+
     </Grid>
 </Page>

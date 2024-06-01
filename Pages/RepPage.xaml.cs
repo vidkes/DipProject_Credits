@@ -33,5 +33,6 @@ namespace credit_normal.Pages
             if (rep.Wanted == false) WantedRep.Text = "Не в розыске";
         }
 
+
     }
 }

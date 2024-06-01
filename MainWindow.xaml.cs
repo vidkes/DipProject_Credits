@@ -51,11 +51,12 @@ namespace credit_normal
             }
             else
             {
-                ToolsMIt.Visibility = Visibility.Hidden;
+                ToolsMIt.Visibility = Visibility.Visible;
             }
             Exit.Visibility = Visibility.Visible;
             HomeMIt.Visibility = Visibility.Visible;
             CllientMIt.Visibility = Visibility.Visible;
+
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

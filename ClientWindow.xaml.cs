@@ -34,8 +34,23 @@ namespace credit_normal
 
         public event Action OnClientDataUpdated;
 
+        //private float ScoreCalc()
+        //{
+        //    using (CreditsEntities db = new CreditsEntities())
+        //    {
+        //        var clnt = db.Client_data
+
+        //        if (clnt.salary < 45000)
+        //        {
+
+        //        }
+
+        //        return scored;
+        //    }
+        //}
         private void save_Click(object sender, RoutedEventArgs e)
         {
+            double scored = 0;
             // Валидация данных
             if (string.IsNullOrEmpty(Inn.Text))
             {
@@ -61,6 +76,9 @@ namespace credit_normal
                 return;
             }
 
+            Random random = new Random();
+            double randomNumber = random.NextDouble() * 100;
+            scored = Math.Round(randomNumber, 2);
             using (CreditsEntities db = new CreditsEntities())
             {
                 // Проверка существует ли клиент
@@ -96,10 +114,9 @@ namespace credit_normal
                 client.Job_position = JobPos.Text;
                 client.salary = salCount;
 
-                if (client.Credit_score == null)
-                {
-                    client.Credit_score = 67.48;
-                }
+                
+                client.Credit_score = scored;
+                
 
                 // Создание отчетов только для нового клиента
                 if (client.report == null)

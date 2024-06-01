@@ -32,17 +32,6 @@ namespace credit_normal.Pages
 
         }
 
-        public void ButtonConfig(bool showEdit, bool showEntr)
-        {
-            if (showEdit == true) 
-                confirm.Visibility = Visibility.Visible;
-            else confirm.Visibility = Visibility.Hidden;
-
-            if (showEntr == true)
-                confirm.Visibility = Visibility.Visible;
-            else confirm.Visibility = Visibility.Hidden;
-        }
-
         private void Canel_Click(object sender, RoutedEventArgs e)
         {
             Login.Text = "";
@@ -52,66 +41,55 @@ namespace credit_normal.Pages
 
         private void Entr_Click(object sender, RoutedEventArgs e)
         {
-            //регистрация нового юзера
-            CreditsEntities db = new CreditsEntities();
-            var usr = db.Accounts
-                .AsNoTracking()
-                .FirstOrDefault(u => u.Login == Login.Text);
-            try
+            // Проверка на пустой логин или пароль
+            if (string.IsNullOrWhiteSpace(Login.Text) || string.IsNullOrWhiteSpace(Password.Text))
             {
-                //проверка существует ли юзер
-                if (usr.Login == Login.Text)
+                MessageBox.Show("Логин и пароль не могут быть пустыми.");
+                return;
+            }
+
+            using (CreditsEntities db = new CreditsEntities())
+            {
+                // Проверка существует ли пользователь по ID
+                var usr = db.Accounts.FirstOrDefault(u => u.ID == _currentUser.ID);
+
+                if (usr != null)
                 {
-                    MessageBox.Show("Такой пользователь уже существует");
-                    Login.Text = "";
-                    Password.Text = "";
-                    Role.SelectedIndex = 0;
+                    // Обновление данных пользователя
+                    usr.Login = Login.Text;
+                    usr.Password = Password.Text;
+                    usr.Role = Role.SelectedIndex == 1;
+
+                    MessageBox.Show("Данные пользователя обновлены.");
                 }
-            }
-            catch
-            {
-                //передача данных нового юзера в базу
-                Accounts user = new Accounts();
+                else
                 {
-                    bool intbool;
-                    user.Login = Login.Text;
-                    user.Password = Password.Text;
-                    if (Role.SelectedIndex == 1) intbool = true;
-                    else intbool = false;
-                    user.Role = intbool;
+                    // Проверка, существует ли пользователь с таким же логином
+                    var loginExists = db.Accounts.Any(u => u.Login == Login.Text);
+                    if (loginExists)
+                    {
+                        MessageBox.Show("Пользователь с таким логином уже существует.");
+                        return;
+                    }
 
-                };
-                db.Accounts.Add(user);
+                    // Создание нового пользователя
+                    _currentUser.Login = Login.Text;
+                    _currentUser.Password = Password.Text;
+                    _currentUser.Role = Role.SelectedIndex == 1;
+
+                    db.Accounts.Add(_currentUser);
+                    MessageBox.Show("Пользователь зарегистрирован.");
+                }
+
                 db.SaveChanges();
-                MessageBox.Show("Пользователь зарегистрирован");
             }
-            NavigationService?.Navigate(new RedactAccs());
-        }
 
-        private void confirm_Click(object sender, RoutedEventArgs e)
-        {
-            //регистрация нового юзера
-            CreditsEntities db = new CreditsEntities();
-            var usr = db.Accounts
-                .AsNoTracking()
-                .FirstOrDefault(u => u.Login == Login.Text);
-            
-                //передача данных нового юзера в базу
-                Accounts user = new Accounts();
-                {
-                    bool intbool;
-                    user.ID = usr.ID;
-                    user.Login = Login.Text;
-                    user.Password = Password.Text;
-                    if (Role.SelectedIndex == 1) intbool = true;
-                    else intbool = false;
-                    user.Role = intbool;
+            // Очистка полей после сохранения
+            Login.Text = "";
+            Password.Text = "";
+            Role.SelectedIndex = 0;
 
-                };
-                db.Accounts.AddOrUpdate(user);
-                db.SaveChanges();
-                MessageBox.Show("Пользователь зарегистрирован");
-            
+            // Переход на страницу RedactAccs
             NavigationService?.Navigate(new RedactAccs());
         }
     }
